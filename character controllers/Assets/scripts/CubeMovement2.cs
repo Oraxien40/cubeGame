@@ -7,12 +7,11 @@ public class CubeMovement2 : MonoBehaviour
     private Vector3 offset;
 
     public GameObject player;
-    public GameObject camera;
     public GameObject center;
-        public GameObject up;
-        public GameObject down;
-        public GameObject right;
-        public GameObject left;
+    public GameObject up;
+    public GameObject down;
+    public GameObject right;
+    public GameObject left;
 
     public int step = 9;
 
@@ -21,57 +20,62 @@ public class CubeMovement2 : MonoBehaviour
     public int JumpForce = 0;
     private Rigidbody mrigidbody;
 
-    private bool north;
-    private bool south;
-    private bool east;
-    private bool west;
-    
+    private bool north = false;
+    private bool south = false;
+    private bool east = false;
+    private bool west = false;
+
 
     bool input = true;
-   
+
     void Start()
     {
         mrigidbody = GetComponent<Rigidbody>();
-        
+
     }
 
-    
+
     void Update()
     {
-        if (camera.transform.rotation.y < 315 || camera.transform.rotation.y >= 45)
+        float cameraAngle = Camera.main.transform.eulerAngles.y;
+        if (cameraAngle > 315 && cameraAngle <= 360 || cameraAngle > 0 && cameraAngle <= 45)
         {
             //set north
             north = true;
+            //Debug.Log("north");
         }
         else
         {
             north = false;
         }
 
-        if (camera.transform.rotation.y < 45 || camera.transform.rotation.y >= 135)
+        if (cameraAngle > 45 && cameraAngle <= 135)
         {
             //set east
             east = true;
+            //Debug.Log("east");
         }
         else
         {
             east = false;
         }
 
-        if (camera.transform.rotation.y < 135 || camera.transform.rotation.y >= 225)
+        if (cameraAngle > 135 && cameraAngle <= 225)
         {
             //set south
             south = true;
+            //Debug.Log("south");
         }
         else
         {
             south = false;
         }
 
-        if (camera.transform.rotation.y < 225 || camera.transform.rotation.y >= 315)
+        if (cameraAngle > 225 && cameraAngle <= 315)
         {
             //set west
             west = true;
+            //Debug.Log("west");
         }
         else
         {
@@ -84,247 +88,151 @@ public class CubeMovement2 : MonoBehaviour
             {
                 if (Input.GetKey(KeyCode.W))
                 {
-                    if (Input.GetKey(KeyCode.D) == false)
+                    if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.A) == false) && (Input.GetKey(KeyCode.S) == false))
                     {
-                        if (Input.GetKey(KeyCode.A) == false)
-                        {
-                            if (Input.GetKey(KeyCode.S) == false)
-                            {
-                                StartCoroutine(moveUp());
-                                input = false;
-                            }
-                        }
+                        StartCoroutine(moveUp());
+                        input = false;
                     }
                 }
-                if (Input.GetKey(KeyCode.D))
+                else if (Input.GetKey(KeyCode.D))
                 {
-                    if (Input.GetKey(KeyCode.W) == false)
+                    if ((Input.GetKey(KeyCode.W) == false) && (Input.GetKey(KeyCode.S) == false) && (Input.GetKey(KeyCode.A) == false))
                     {
-                        if (Input.GetKey(KeyCode.S) == false)
-                        {
-                            if (Input.GetKey(KeyCode.A) == false)
-                            {
-                                StartCoroutine(moveRight());
-                                input = false;
-                            }
-                        }
+                        StartCoroutine(moveRight());
+                        input = false;
                     }
                 }
-                if (Input.GetKey(KeyCode.S))
+                else if (Input.GetKey(KeyCode.S))
                 {
-                    if (Input.GetKey(KeyCode.D) == false)
+                    if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.A) == false) && (Input.GetKey(KeyCode.W) == false))
                     {
-                        if (Input.GetKey(KeyCode.A) == false)
-                        {
-                            if (Input.GetKey(KeyCode.W) == false)
-                            {
-                                StartCoroutine(moveDown());
-                                input = false;
-                            }
-                        }
+                        StartCoroutine(moveDown());
+                        input = false;
                     }
                 }
-                if (Input.GetKey(KeyCode.A))
+                else if (Input.GetKey(KeyCode.A))
                 {
-                    if (Input.GetKey(KeyCode.D) == false)
+                    if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.W) == false) && (Input.GetKey(KeyCode.S) == false))
                     {
-                        if (Input.GetKey(KeyCode.W) == false)
-                        {
-                            if (Input.GetKey(KeyCode.S) == false)
-                            {
-                                StartCoroutine(moveLeft());
-                                input = false;
-                            }
-                        }
+                        StartCoroutine(moveLeft());
+                        input = false;
                     }
                 }
             }
         }
 
-        if (east == true)
+        else if (east == true)
         {
             if (input == true)
             {
                 if (Input.GetKey(KeyCode.W))
                 {
-                    if (Input.GetKey(KeyCode.D) == false)
+                    if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.A) == false) && (Input.GetKey(KeyCode.S) == false))
                     {
-                        if (Input.GetKey(KeyCode.A) == false)
-                        {
-                            if (Input.GetKey(KeyCode.S) == false)
-                            {
-                                StartCoroutine(moveRight());
-                                input = false;
-                            }
-                        }
+                        StartCoroutine(moveRight());
+                        input = false;
                     }
                 }
-                if (Input.GetKey(KeyCode.D))
+                else if (Input.GetKey(KeyCode.D))
                 {
-                    if (Input.GetKey(KeyCode.W) == false)
+                    if ((Input.GetKey(KeyCode.W) == false) && (Input.GetKey(KeyCode.S) == false) && (Input.GetKey(KeyCode.A) == false))
                     {
-                        if (Input.GetKey(KeyCode.S) == false)
-                        {
-                            if (Input.GetKey(KeyCode.A) == false)
-                            {
-                                StartCoroutine(moveDown());
-                                input = false;
-                            }
-                        }
+                        StartCoroutine(moveDown());
+                        input = false;
                     }
                 }
-                if (Input.GetKey(KeyCode.S))
+                else if (Input.GetKey(KeyCode.S))
                 {
-                    if (Input.GetKey(KeyCode.D) == false)
+                    if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.A) == false) && (Input.GetKey(KeyCode.W) == false))
                     {
-                        if (Input.GetKey(KeyCode.A) == false)
-                        {
-                            if (Input.GetKey(KeyCode.W) == false)
-                            {
-                                StartCoroutine(moveLeft());
-                                input = false;
-                            }
-                        }
+                        StartCoroutine(moveLeft());
+                        input = false;
                     }
                 }
-                if (Input.GetKey(KeyCode.A))
+                else if (Input.GetKey(KeyCode.A))
                 {
-                    if (Input.GetKey(KeyCode.D) == false)
+                    if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.W) == false) && (Input.GetKey(KeyCode.S) == false))
                     {
-                        if (Input.GetKey(KeyCode.W) == false)
-                        {
-                            if (Input.GetKey(KeyCode.S) == false)
-                            {
-                                StartCoroutine(moveUp());
-                                input = false;
-                            }
-                        }
+                        StartCoroutine(moveUp());
+                        input = false;
                     }
                 }
             }
         }
 
-        if (south == true)
+        else if (south == true)
         {
             if (input == true)
             {
                 if (Input.GetKey(KeyCode.W))
                 {
-                    if (Input.GetKey(KeyCode.D) == false)
+                    if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.A) == false) && (Input.GetKey(KeyCode.S) == false))
                     {
-                        if (Input.GetKey(KeyCode.A) == false)
-                        {
-                            if (Input.GetKey(KeyCode.S) == false)
-                            {
-                                StartCoroutine(moveDown());
-                                input = false;
-                            }
-                        }
+                        StartCoroutine(moveDown());
+                        input = false;
                     }
                 }
-                if (Input.GetKey(KeyCode.D))
+                else if (Input.GetKey(KeyCode.D))
                 {
-                    if (Input.GetKey(KeyCode.W) == false)
+                    if ((Input.GetKey(KeyCode.W) == false) && (Input.GetKey(KeyCode.S) == false) && (Input.GetKey(KeyCode.A) == false))
                     {
-                        if (Input.GetKey(KeyCode.S) == false)
-                        {
-                            if (Input.GetKey(KeyCode.A) == false)
-                            {
-                                StartCoroutine(moveLeft());
-                                input = false;
-                            }
-                        }
+                        StartCoroutine(moveLeft());
+                        input = false;
                     }
                 }
-                if (Input.GetKey(KeyCode.S))
+                else if (Input.GetKey(KeyCode.S))
                 {
-                    if (Input.GetKey(KeyCode.D) == false)
+                    if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.A) == false) && (Input.GetKey(KeyCode.W) == false))
                     {
-                        if (Input.GetKey(KeyCode.A) == false)
-                        {
-                            if (Input.GetKey(KeyCode.W) == false)
-                            {
-                                StartCoroutine(moveUp());
-                                input = false;
-                            }
-                        }
+                        StartCoroutine(moveUp());
+                        input = false;
                     }
                 }
-                if (Input.GetKey(KeyCode.A))
+                else if (Input.GetKey(KeyCode.A))
                 {
-                    if (Input.GetKey(KeyCode.D) == false)
+                    if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.W) == false) && (Input.GetKey(KeyCode.S) == false))
                     {
-                        if (Input.GetKey(KeyCode.W) == false)
-                        {
-                            if (Input.GetKey(KeyCode.S) == false)
-                            {
-                                StartCoroutine(moveRight());
-                                input = false;
-                            }
-                        }
+                        StartCoroutine(moveRight());
+                        input = false;
                     }
                 }
             }
         }
 
-        if (west == true)
+        else if (west == true)
         {
             if (input == true)
             {
                 if (Input.GetKey(KeyCode.W))
                 {
-                    if (Input.GetKey(KeyCode.D) == false)
+                    if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.A) == false) && (Input.GetKey(KeyCode.S) == false))
                     {
-                        if (Input.GetKey(KeyCode.A) == false)
-                        {
-                            if (Input.GetKey(KeyCode.S) == false)
-                            {
-                                StartCoroutine(moveRight());
-                                input = false;
-                            }
-                        }
+                        StartCoroutine(moveLeft());
+                        input = false;
                     }
                 }
-                if (Input.GetKey(KeyCode.D))
+                else if (Input.GetKey(KeyCode.D))
                 {
-                    if (Input.GetKey(KeyCode.W) == false)
+                    if ((Input.GetKey(KeyCode.W) == false) && (Input.GetKey(KeyCode.S) == false) && (Input.GetKey(KeyCode.A) == false))
                     {
-                        if (Input.GetKey(KeyCode.S) == false)
-                        {
-                            if (Input.GetKey(KeyCode.A) == false)
-                            {
-                                StartCoroutine(moveDown());
-                                input = false;
-                            }
-                        }
+                        StartCoroutine(moveUp());
+                        input = false;
                     }
                 }
-                if (Input.GetKey(KeyCode.S))
+                else if (Input.GetKey(KeyCode.S))
                 {
-                    if (Input.GetKey(KeyCode.D) == false)
+                    if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.A) == false) && (Input.GetKey(KeyCode.W) == false))
                     {
-                        if (Input.GetKey(KeyCode.A) == false)
-                        {
-                            if (Input.GetKey(KeyCode.W) == false)
-                            {
-                                StartCoroutine(moveLeft());
-                                input = false;
-                            }
-                        }
+                        StartCoroutine(moveRight());
+                        input = false;
                     }
                 }
-                if (Input.GetKey(KeyCode.A))
+                else if (Input.GetKey(KeyCode.A))
                 {
-                    if (Input.GetKey(KeyCode.D) == false)
+                    if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.W) == false) && (Input.GetKey(KeyCode.S) == false))
                     {
-                        if (Input.GetKey(KeyCode.W) == false)
-                        {
-                            if (Input.GetKey(KeyCode.S) == false)
-                            {
-                                StartCoroutine(moveUp());
-                                input = false;
-                            }
-                        }
+                        StartCoroutine(moveDown());
+                        input = false;
                     }
                 }
             }
@@ -340,11 +248,11 @@ public class CubeMovement2 : MonoBehaviour
                 }
             }
         }*/
-        
 
-       
+
+
     }
-    
+
     IEnumerator moveUp()
     {
         for (int i = 0; i < (90 / step); i++)
