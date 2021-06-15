@@ -1,7 +1,9 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
+    - Collectable
     - CubeMovement2
+    - GameManager
     - test
     Cinemachine.dll:
     - Cinemachine.CinemachineBrain
@@ -30,8 +32,6 @@ ScriptsOnlyBuild:
     - UnityEditor.TestTools.TestRunner.TestListCacheData
     - UnityEditor.TestTools.TestRunner.TestRun.TestJobDataHolder
     UnityEngine.UI.dll:
-    - UnityEngine.EventSystems.EventSystem
-    - UnityEngine.EventSystems.StandaloneInputModule
     - UnityEngine.UI.CanvasScaler
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.RawImage
@@ -56,7 +56,11 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
+    - Class: 54
+      Script: {instanceID: 0}
     - Class: 64
+      Script: {instanceID: 0}
+    - Class: 65
       Script: {instanceID: 0}
     - Class: 74
       Script: {instanceID: 0}
@@ -75,13 +79,13 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11854}
     - Class: 114
-      Script: {instanceID: 12118}
+      Script: {instanceID: 12062}
     - Class: 114
-      Script: {instanceID: 12514}
+      Script: {instanceID: 12120}
     - Class: 114
-      Script: {instanceID: 12620}
+      Script: {instanceID: 12516}
     - Class: 114
-      Script: {instanceID: 12792}
+      Script: {instanceID: 12622}
     - Class: 114
       Script: {instanceID: 13084}
     - Class: 114
@@ -91,15 +95,17 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 13492}
     - Class: 114
-      Script: {instanceID: 13924}
+      Script: {instanceID: 13586}
     - Class: 114
-      Script: {instanceID: 14250}
+      Script: {instanceID: 13926}
     - Class: 114
-      Script: {instanceID: 14778}
+      Script: {instanceID: 14252}
     - Class: 114
-      Script: {instanceID: 14814}
+      Script: {instanceID: 14780}
     - Class: 114
-      Script: {instanceID: 15722}
+      Script: {instanceID: 23814}
+    - Class: 114
+      Script: {instanceID: 24058}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -179,6 +185,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools.TestRunner.Callbacks
     className: PlayerQuitHandler
+  - hash:
+      serializedVersion: 2
+      Hash: d4777fd2ce44d1e2e83e35f2ab3c7e15
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Collectable
   - hash:
       serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
@@ -331,7 +343,7 @@ ScriptsOnlyBuild:
     className: RectMask2D
   - hash:
       serializedVersion: 2
-      Hash: 02f99995b1ac9fa1c0011905369f01e2
+      Hash: b3da3d734ac0f61fa1266dfaa464119b
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CubeMovement2
@@ -533,6 +545,12 @@ ScriptsOnlyBuild:
     assemblyName: Cinemachine.dll
     namespaceName: Cinemachine
     className: CinemachineTargetGroup
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: test
   - hash:
       serializedVersion: 2
       Hash: 3164bc883ff663a5cdb32d1ef7e7c0c5
@@ -883,11 +901,11 @@ ScriptsOnlyBuild:
     className: PlayableTrack
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: 7eb613726c07d29f7af188baafb3151a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: test
+    className: GameManager
   platform: 5
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
-  playerPath: C:/Users/s210255/Pictures/jordans cube game/character controllers.exe
+  playerPath: C:/Users/s210255/Pictures/Camera Roll/character controllers.exe

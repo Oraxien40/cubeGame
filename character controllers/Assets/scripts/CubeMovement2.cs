@@ -17,20 +17,25 @@ public class CubeMovement2 : MonoBehaviour
 
     public float speed = (float)0.01;
 
-    public int JumpForce = 0;
-    private Rigidbody mrigidbody;
+    //public int JumpForce = 0;
+    //private Rigidbody mrigidbody;
 
     private bool north = false;
     private bool south = false;
     private bool east = false;
     private bool west = false;
 
+    public bool moveUpUsed = false;
+    public bool moveDownUsed = false;
+    public bool moveLeftUsed = false;
+    public bool moveRightUsed = false;
+
 
     bool input = true;
 
     void Start()
     {
-        mrigidbody = GetComponent<Rigidbody>();
+        //mrigidbody = GetComponent<Rigidbody>();
 
     }
 
@@ -262,6 +267,10 @@ public class CubeMovement2 : MonoBehaviour
         }
         center.transform.position = player.transform.position;
         input = true;
+        if (moveUpUsed == false)
+        {
+            moveUpUsed = true;
+        }
     }
 
     IEnumerator moveDown()
@@ -273,6 +282,10 @@ public class CubeMovement2 : MonoBehaviour
         }
         center.transform.position = player.transform.position;
         input = true;
+        if (moveDownUsed == false)
+        {
+            moveDownUsed = true;
+        }
     }
 
     IEnumerator moveRight()
@@ -284,6 +297,10 @@ public class CubeMovement2 : MonoBehaviour
         }
         center.transform.position = player.transform.position;
         input = true;
+        if (moveRightUsed == false)
+        {
+            moveRightUsed = true;
+        }
     }
 
     IEnumerator moveLeft()
@@ -295,6 +312,10 @@ public class CubeMovement2 : MonoBehaviour
         }
         center.transform.position = player.transform.position;
         input = true;
+        if (moveLeftUsed == false)
+        {
+            moveLeftUsed = true;
+        }
     }
 
 
