@@ -8,10 +8,22 @@ public class CubeMovement2 : MonoBehaviour
 
     public GameObject player;
     public GameObject center;
-    public GameObject up;
-    public GameObject down;
-    public GameObject right;
-    public GameObject left;
+   
+    public GameObject North;
+    public GameObject NUp;
+    public GameObject NDown;
+    
+    public GameObject South;
+    public GameObject SUp;
+    public GameObject SDown;
+    
+    public GameObject East;
+    public GameObject EUp;
+    public GameObject EDown;
+    
+    public GameObject West;
+    public GameObject WUp;
+    public GameObject WDown;
 
     public int step = 9;
 
@@ -20,18 +32,21 @@ public class CubeMovement2 : MonoBehaviour
     //public int JumpForce = 0;
     //private Rigidbody mrigidbody;
 
-    private bool north = false;
-    private bool south = false;
-    private bool east = false;
-    private bool west = false;
+    bool cNorth = false;
+    bool cSouth = false;
+    bool cEast = false;
+    bool cWest = false;
 
-    public bool moveUpUsed = false;
-    public bool moveDownUsed = false;
-    public bool moveLeftUsed = false;
-    public bool moveRightUsed = false;
+    [HideInInspector] public bool moveUpUsed = false;
+    [HideInInspector] public bool moveDownUsed = false;
+    [HideInInspector] public bool moveLeftUsed = false;
+    [HideInInspector] public bool moveRightUsed = false;
 
-
-    bool input = true;
+    [HideInInspector] public bool Ninput = true;
+    [HideInInspector] public bool Sinput = true;
+    [HideInInspector] public bool Einput = true;
+    [HideInInspector] public bool Winput = true;
+    [HideInInspector] public bool OFFinput = true;
 
     void Start()
     {
@@ -42,61 +57,65 @@ public class CubeMovement2 : MonoBehaviour
 
     void Update()
     {
-        float cameraAngle = Camera.main.transform.eulerAngles.y;
-        if (cameraAngle > 315 && cameraAngle <= 360 || cameraAngle > 0 && cameraAngle <= 45)
+        if (OFFinput == true)
         {
-            //set north
-            north = true;
-            //Debug.Log("north");
-        }
-        else
-        {
-            north = false;
-        }
+            float cameraAngle = Camera.main.transform.eulerAngles.y;
+            if (cameraAngle > 315 && cameraAngle <= 360 || cameraAngle > 0 && cameraAngle <= 45)
+            {
+                //set north
+                cNorth = true;
+                //Debug.Log("north");
+            }
+            else
+            {
+                cNorth = false;
+            }
 
-        if (cameraAngle > 45 && cameraAngle <= 135)
-        {
-            //set east
-            east = true;
-            //Debug.Log("east");
-        }
-        else
-        {
-            east = false;
-        }
+            if (cameraAngle > 45 && cameraAngle <= 135)
+            {
+                //set east
+                cEast = true;
+                //Debug.Log("east");
+            }
+            else
+            {
+                cEast = false;
+            }
 
-        if (cameraAngle > 135 && cameraAngle <= 225)
-        {
-            //set south
-            south = true;
-            //Debug.Log("south");
-        }
-        else
-        {
-            south = false;
-        }
+            if (cameraAngle > 135 && cameraAngle <= 225)
+            {
+                //set south
+                cSouth = true;
+                //Debug.Log("south");
+            }
+            else
+            {
+                cSouth = false;
+            }
 
-        if (cameraAngle > 225 && cameraAngle <= 315)
-        {
-            //set west
-            west = true;
-            //Debug.Log("west");
+            if (cameraAngle > 225 && cameraAngle <= 315)
+            {
+                //set west
+                cWest = true;
+                //Debug.Log("west");
+            }
+            else
+            {
+                cWest = false;
+            }
         }
-        else
-        {
-            west = false;
-        }
+        
 
-        if (north == true)
+        if (cNorth == true)
         {
-            if (input == true)
+            if (Ninput == true)
             {
                 if (Input.GetKey(KeyCode.W))
                 {
                     if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.A) == false) && (Input.GetKey(KeyCode.S) == false))
                     {
                         StartCoroutine(moveUp());
-                        input = false;
+                        Ninput = false;
                     }
                 }
                 else if (Input.GetKey(KeyCode.D))
@@ -104,7 +123,7 @@ public class CubeMovement2 : MonoBehaviour
                     if ((Input.GetKey(KeyCode.W) == false) && (Input.GetKey(KeyCode.S) == false) && (Input.GetKey(KeyCode.A) == false))
                     {
                         StartCoroutine(moveRight());
-                        input = false;
+                        Ninput = false;
                     }
                 }
                 else if (Input.GetKey(KeyCode.S))
@@ -112,7 +131,7 @@ public class CubeMovement2 : MonoBehaviour
                     if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.A) == false) && (Input.GetKey(KeyCode.W) == false))
                     {
                         StartCoroutine(moveDown());
-                        input = false;
+                        Ninput = false;
                     }
                 }
                 else if (Input.GetKey(KeyCode.A))
@@ -120,22 +139,22 @@ public class CubeMovement2 : MonoBehaviour
                     if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.W) == false) && (Input.GetKey(KeyCode.S) == false))
                     {
                         StartCoroutine(moveLeft());
-                        input = false;
+                        Ninput = false;
                     }
                 }
             }
         }
 
-        else if (east == true)
+        else if (cEast == true)
         {
-            if (input == true)
+            if (Einput == true)
             {
                 if (Input.GetKey(KeyCode.W))
                 {
                     if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.A) == false) && (Input.GetKey(KeyCode.S) == false))
                     {
                         StartCoroutine(moveRight());
-                        input = false;
+                        Einput = false;
                     }
                 }
                 else if (Input.GetKey(KeyCode.D))
@@ -143,7 +162,7 @@ public class CubeMovement2 : MonoBehaviour
                     if ((Input.GetKey(KeyCode.W) == false) && (Input.GetKey(KeyCode.S) == false) && (Input.GetKey(KeyCode.A) == false))
                     {
                         StartCoroutine(moveDown());
-                        input = false;
+                        Einput = false;
                     }
                 }
                 else if (Input.GetKey(KeyCode.S))
@@ -151,7 +170,7 @@ public class CubeMovement2 : MonoBehaviour
                     if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.A) == false) && (Input.GetKey(KeyCode.W) == false))
                     {
                         StartCoroutine(moveLeft());
-                        input = false;
+                        Einput = false;
                     }
                 }
                 else if (Input.GetKey(KeyCode.A))
@@ -159,22 +178,22 @@ public class CubeMovement2 : MonoBehaviour
                     if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.W) == false) && (Input.GetKey(KeyCode.S) == false))
                     {
                         StartCoroutine(moveUp());
-                        input = false;
+                        Einput = false;
                     }
                 }
             }
         }
 
-        else if (south == true)
+        else if (cSouth == true)
         {
-            if (input == true)
+            if (Sinput == true)
             {
                 if (Input.GetKey(KeyCode.W))
                 {
                     if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.A) == false) && (Input.GetKey(KeyCode.S) == false))
                     {
                         StartCoroutine(moveDown());
-                        input = false;
+                        Sinput = false;
                     }
                 }
                 else if (Input.GetKey(KeyCode.D))
@@ -182,7 +201,7 @@ public class CubeMovement2 : MonoBehaviour
                     if ((Input.GetKey(KeyCode.W) == false) && (Input.GetKey(KeyCode.S) == false) && (Input.GetKey(KeyCode.A) == false))
                     {
                         StartCoroutine(moveLeft());
-                        input = false;
+                        Sinput = false;
                     }
                 }
                 else if (Input.GetKey(KeyCode.S))
@@ -190,7 +209,7 @@ public class CubeMovement2 : MonoBehaviour
                     if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.A) == false) && (Input.GetKey(KeyCode.W) == false))
                     {
                         StartCoroutine(moveUp());
-                        input = false;
+                        Sinput = false;
                     }
                 }
                 else if (Input.GetKey(KeyCode.A))
@@ -198,22 +217,22 @@ public class CubeMovement2 : MonoBehaviour
                     if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.W) == false) && (Input.GetKey(KeyCode.S) == false))
                     {
                         StartCoroutine(moveRight());
-                        input = false;
+                        Sinput = false;
                     }
                 }
             }
         }
 
-        else if (west == true)
+        else if (cWest == true)
         {
-            if (input == true)
+            if (Winput == true)
             {
                 if (Input.GetKey(KeyCode.W))
                 {
                     if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.A) == false) && (Input.GetKey(KeyCode.S) == false))
                     {
                         StartCoroutine(moveLeft());
-                        input = false;
+                        Winput = false;
                     }
                 }
                 else if (Input.GetKey(KeyCode.D))
@@ -221,7 +240,7 @@ public class CubeMovement2 : MonoBehaviour
                     if ((Input.GetKey(KeyCode.W) == false) && (Input.GetKey(KeyCode.S) == false) && (Input.GetKey(KeyCode.A) == false))
                     {
                         StartCoroutine(moveUp());
-                        input = false;
+                        Winput = false;
                     }
                 }
                 else if (Input.GetKey(KeyCode.S))
@@ -229,7 +248,7 @@ public class CubeMovement2 : MonoBehaviour
                     if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.A) == false) && (Input.GetKey(KeyCode.W) == false))
                     {
                         StartCoroutine(moveRight());
-                        input = false;
+                        Winput = false;
                     }
                 }
                 else if (Input.GetKey(KeyCode.A))
@@ -237,7 +256,7 @@ public class CubeMovement2 : MonoBehaviour
                     if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.W) == false) && (Input.GetKey(KeyCode.S) == false))
                     {
                         StartCoroutine(moveDown());
-                        input = false;
+                        Winput = false;
                     }
                 }
             }
@@ -253,20 +272,19 @@ public class CubeMovement2 : MonoBehaviour
                 }
             }
         }*/
-
-
-
     }
 
     IEnumerator moveUp()
     {
         for (int i = 0; i < (90 / step); i++)
         {
-            player.transform.RotateAround(up.transform.position, Vector3.right, step);
+            OFFinput = false;
+            player.transform.RotateAround(NDown.transform.position, Vector3.right, step);
             yield return new WaitForSeconds(speed);
+            OFFinput = true;
         }
         center.transform.position = player.transform.position;
-        input = true;
+        input();
         if (moveUpUsed == false)
         {
             moveUpUsed = true;
@@ -277,11 +295,13 @@ public class CubeMovement2 : MonoBehaviour
     {
         for (int i = 0; i < (90 / step); i++)
         {
-            player.transform.RotateAround(down.transform.position, Vector3.left, step);
+            OFFinput = false;
+            player.transform.RotateAround(SDown.transform.position, Vector3.left, step);
             yield return new WaitForSeconds(speed);
+            OFFinput = true;
         }
         center.transform.position = player.transform.position;
-        input = true;
+        input();
         if (moveDownUsed == false)
         {
             moveDownUsed = true;
@@ -292,11 +312,13 @@ public class CubeMovement2 : MonoBehaviour
     {
         for (int i = 0; i < (90 / step); i++)
         {
-            player.transform.RotateAround(right.transform.position, Vector3.back, step);
+            OFFinput = false;
+            player.transform.RotateAround(EDown.transform.position, Vector3.back, step);
             yield return new WaitForSeconds(speed);
+            OFFinput = true;
         }
         center.transform.position = player.transform.position;
-        input = true;
+        input();
         if (moveRightUsed == false)
         {
             moveRightUsed = true;
@@ -307,16 +329,24 @@ public class CubeMovement2 : MonoBehaviour
     {
         for (int i = 0; i < (90 / step); i++)
         {
-            player.transform.RotateAround(left.transform.position, Vector3.forward, step);
+            OFFinput = false;
+            player.transform.RotateAround(WDown.transform.position, Vector3.forward, step);
             yield return new WaitForSeconds(speed);
+            OFFinput = true;
         }
         center.transform.position = player.transform.position;
-        input = true;
+        input();
         if (moveLeftUsed == false)
         {
             moveLeftUsed = true;
         }
     }
 
-
+    void input()
+    {
+        Ninput = true;
+        Sinput = true;
+        Einput = true;
+        Winput = true;
+    }
 }

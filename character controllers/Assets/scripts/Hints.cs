@@ -9,7 +9,7 @@ public class Hints : MonoBehaviour
     public CubeMovement2 CM2;
 
     string hintMove = "WASD to move";
-    string hintCollect = "move over the dimonds to add to your score";
+    string hintCollect = "move over the diamonds to add to your score";
 
     bool MHint = false;
 
