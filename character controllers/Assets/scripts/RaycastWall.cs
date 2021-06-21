@@ -19,19 +19,19 @@ public class RaycastWall : MonoBehaviour
         // NOTE!!!!!! change rotation of center to camera!!!!!!!!!!!!!!!!!!!!!!!!
         if (Physics.Raycast(CM2.center.transform.position, new Vector3 (0, Vector3.Angle(transform.position, CM2.North.transform.position), 0), out wall, Vector3.Distance(transform.position,CM2.North.transform.position)))
         {
-            CM2.Ninput = false;
+            CM2.input = false;
         }
         if (Physics.Raycast(CM2.center.transform.position, -transform.forward,out wall,1.1f))
         {
-            CM2.Sinput = false;
+            CM2.input = false;
         }
         if (Physics.Raycast(CM2.center.transform.position, transform.right,out wall, 1.1f))
         {
-            CM2.Einput = false;
+            CM2.input = false;
         }
         if (Physics.Raycast(CM2.center.transform.position, -transform.right,out wall, 1.1f))
         {
-            CM2.Winput = false;
+            CM2.input = false;
         }
     }
 }

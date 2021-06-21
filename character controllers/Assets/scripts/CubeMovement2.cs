@@ -4,71 +4,66 @@ using UnityEngine;
 
 public class CubeMovement2 : MonoBehaviour
 {
+    //Variables
     private Vector3 offset;
 
-    public GameObject player;
-    public GameObject center;
+    public GameObject player; //Cube
+    public GameObject center; //Object point in the center of the cube
    
-    public GameObject North;
-    public GameObject NUp;
-    public GameObject NDown;
-    
-    public GameObject South;
-    public GameObject SUp;
-    public GameObject SDown;
-    
-    public GameObject East;
-    public GameObject EUp;
-    public GameObject EDown;
-    
-    public GameObject West;
-    public GameObject WUp;
-    public GameObject WDown;
+    public GameObject North; //Object point 1 meter North of center
+    public GameObject NUp; //Object point 1 meter Up of North
+    public GameObject NDown; //Object point 1 meter Down of North
 
-    public int step = 9;
+    public GameObject South; //Object point 1 meter South of center
+    public GameObject SUp; //Object point 1 meter Up of South
+    public GameObject SDown; //Object point 1 meter Down of South
 
-    public float speed = (float)0.01;
+    public GameObject East; //Object point 1 meter East of center
+    public GameObject EUp; //Object point 1 meter Up of East
+    public GameObject EDown; //Object point 1 meter Down of East
 
-    //public int JumpForce = 0;
-    //private Rigidbody mrigidbody;
+    public GameObject West; //Object point 1 meter West of center
+    public GameObject WUp; //Object point 1 meter Up of West
+    public GameObject WDown; //Object point 1 meter Down of West
 
-    bool cNorth = false;
-    bool cSouth = false;
-    bool cEast = false;
-    bool cWest = false;
+    public int step; //Determines the angle of rotation speed
 
-    [HideInInspector] public bool moveUpUsed = false;
-    [HideInInspector] public bool moveDownUsed = false;
-    [HideInInspector] public bool moveLeftUsed = false;
-    [HideInInspector] public bool moveRightUsed = false;
+    public float speed = (float)0.01; //Determines how long the "WaitForSeconds" is active
 
-    [HideInInspector] public bool Ninput = true;
-    [HideInInspector] public bool Sinput = true;
-    [HideInInspector] public bool Einput = true;
-    [HideInInspector] public bool Winput = true;
-    [HideInInspector] public bool OFFinput = true;
+    bool cNorth = false; //Determines if the camera is facing North
+    bool cSouth = false; //Determines if the camera is facing South
+    bool cEast = false; //Determines if the camera is facing East
+    bool cWest = false; //Determines if the camera is facing West
+
+    [HideInInspector] public bool moveUpUsed = false; //Determines if "moveUp" has been used
+    [HideInInspector] public bool moveDownUsed = false; //Determines if "moveDown" has been used
+    [HideInInspector] public bool moveLeftUsed = false; //Determines if "moveLeft" has been used
+    [HideInInspector] public bool moveRightUsed = false; //Determines if "moveRight" has been used
+
+    [HideInInspector] public bool input = true; //stops the "void Update" from taking KeyCode inputs while Any "IEnumerators" are active 
+    [HideInInspector] public bool OFFinput = true; //stops the ""void Update" from taking CameraAngle inputs while Any "IEnumerators" are active 
 
     void Start()
     {
-        //mrigidbody = GetComponent<Rigidbody>();
-
-    }
-
-
-    void Update()
-    {
-        if (OFFinput == true)
+        if (90 % step != 0) //checks if varible "step" is divisible by 90
         {
-            float cameraAngle = Camera.main.transform.eulerAngles.y;
-            if (cameraAngle > 315 && cameraAngle <= 360 || cameraAngle > 0 && cameraAngle <= 45)
+            Debug.LogError("your variable step is not divisivble by 90"); //Logs a Debug LogError
+        }
+    }
+    void Update() //Update is called once per frame
+    {
+        if (OFFinput == true) //Checks if "OFFinput" is true
+        {
+            float cameraAngle = Camera.main.transform.eulerAngles.y; //Locates the cameras location/rotation around the target (Player) and sets varible "cameraAngle" to eaqual it
+            if (cameraAngle > 315 && cameraAngle <= 360 || cameraAngle > 0 && cameraAngle <= 45) //Checks if the camera is facing North
             {
                 //set north
-                cNorth = true;
+                cNorth = true; //sets "cNorth" to true
                 //Debug.Log("north");
             }
             else
             {
-                cNorth = false;
+                cNorth = false; //sets "cNorth" to false
             }
 
             if (cameraAngle > 45 && cameraAngle <= 135)
@@ -108,14 +103,14 @@ public class CubeMovement2 : MonoBehaviour
 
         if (cNorth == true)
         {
-            if (Ninput == true)
+            if (input == true)
             {
-                if (Input.GetKey(KeyCode.W))
+                if (Input.GetKey(KeyCode.W)) //cecks if "W" key is pressed
                 {
-                    if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.A) == false) && (Input.GetKey(KeyCode.S) == false))
+                    if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.A) == false) && (Input.GetKey(KeyCode.S) == false)) //checks if "A" "S" and "D" are pressed
                     {
-                        StartCoroutine(moveUp());
-                        Ninput = false;
+                        StartCoroutine(moveUp()); //starts coroutine "moveUp"
+                        input = false;
                     }
                 }
                 else if (Input.GetKey(KeyCode.D))
@@ -123,7 +118,7 @@ public class CubeMovement2 : MonoBehaviour
                     if ((Input.GetKey(KeyCode.W) == false) && (Input.GetKey(KeyCode.S) == false) && (Input.GetKey(KeyCode.A) == false))
                     {
                         StartCoroutine(moveRight());
-                        Ninput = false;
+                        input = false;
                     }
                 }
                 else if (Input.GetKey(KeyCode.S))
@@ -131,7 +126,7 @@ public class CubeMovement2 : MonoBehaviour
                     if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.A) == false) && (Input.GetKey(KeyCode.W) == false))
                     {
                         StartCoroutine(moveDown());
-                        Ninput = false;
+                        input = false;
                     }
                 }
                 else if (Input.GetKey(KeyCode.A))
@@ -139,7 +134,7 @@ public class CubeMovement2 : MonoBehaviour
                     if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.W) == false) && (Input.GetKey(KeyCode.S) == false))
                     {
                         StartCoroutine(moveLeft());
-                        Ninput = false;
+                        input = false;
                     }
                 }
             }
@@ -147,14 +142,14 @@ public class CubeMovement2 : MonoBehaviour
 
         else if (cEast == true)
         {
-            if (Einput == true)
+            if (input == true)
             {
                 if (Input.GetKey(KeyCode.W))
                 {
                     if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.A) == false) && (Input.GetKey(KeyCode.S) == false))
                     {
                         StartCoroutine(moveRight());
-                        Einput = false;
+                        input = false;
                     }
                 }
                 else if (Input.GetKey(KeyCode.D))
@@ -162,7 +157,7 @@ public class CubeMovement2 : MonoBehaviour
                     if ((Input.GetKey(KeyCode.W) == false) && (Input.GetKey(KeyCode.S) == false) && (Input.GetKey(KeyCode.A) == false))
                     {
                         StartCoroutine(moveDown());
-                        Einput = false;
+                        input = false;
                     }
                 }
                 else if (Input.GetKey(KeyCode.S))
@@ -170,7 +165,7 @@ public class CubeMovement2 : MonoBehaviour
                     if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.A) == false) && (Input.GetKey(KeyCode.W) == false))
                     {
                         StartCoroutine(moveLeft());
-                        Einput = false;
+                        input = false;
                     }
                 }
                 else if (Input.GetKey(KeyCode.A))
@@ -178,7 +173,7 @@ public class CubeMovement2 : MonoBehaviour
                     if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.W) == false) && (Input.GetKey(KeyCode.S) == false))
                     {
                         StartCoroutine(moveUp());
-                        Einput = false;
+                        input = false;
                     }
                 }
             }
@@ -186,14 +181,14 @@ public class CubeMovement2 : MonoBehaviour
 
         else if (cSouth == true)
         {
-            if (Sinput == true)
+            if (input == true)
             {
                 if (Input.GetKey(KeyCode.W))
                 {
                     if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.A) == false) && (Input.GetKey(KeyCode.S) == false))
                     {
                         StartCoroutine(moveDown());
-                        Sinput = false;
+                        input = false;
                     }
                 }
                 else if (Input.GetKey(KeyCode.D))
@@ -201,7 +196,7 @@ public class CubeMovement2 : MonoBehaviour
                     if ((Input.GetKey(KeyCode.W) == false) && (Input.GetKey(KeyCode.S) == false) && (Input.GetKey(KeyCode.A) == false))
                     {
                         StartCoroutine(moveLeft());
-                        Sinput = false;
+                        input = false;
                     }
                 }
                 else if (Input.GetKey(KeyCode.S))
@@ -209,7 +204,7 @@ public class CubeMovement2 : MonoBehaviour
                     if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.A) == false) && (Input.GetKey(KeyCode.W) == false))
                     {
                         StartCoroutine(moveUp());
-                        Sinput = false;
+                        input = false;
                     }
                 }
                 else if (Input.GetKey(KeyCode.A))
@@ -217,7 +212,7 @@ public class CubeMovement2 : MonoBehaviour
                     if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.W) == false) && (Input.GetKey(KeyCode.S) == false))
                     {
                         StartCoroutine(moveRight());
-                        Sinput = false;
+                        input = false;
                     }
                 }
             }
@@ -225,14 +220,14 @@ public class CubeMovement2 : MonoBehaviour
 
         else if (cWest == true)
         {
-            if (Winput == true)
+            if (input == true)
             {
                 if (Input.GetKey(KeyCode.W))
                 {
                     if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.A) == false) && (Input.GetKey(KeyCode.S) == false))
                     {
                         StartCoroutine(moveLeft());
-                        Winput = false;
+                        input = false;
                     }
                 }
                 else if (Input.GetKey(KeyCode.D))
@@ -240,7 +235,7 @@ public class CubeMovement2 : MonoBehaviour
                     if ((Input.GetKey(KeyCode.W) == false) && (Input.GetKey(KeyCode.S) == false) && (Input.GetKey(KeyCode.A) == false))
                     {
                         StartCoroutine(moveUp());
-                        Winput = false;
+                        input = false;
                     }
                 }
                 else if (Input.GetKey(KeyCode.S))
@@ -248,7 +243,7 @@ public class CubeMovement2 : MonoBehaviour
                     if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.A) == false) && (Input.GetKey(KeyCode.W) == false))
                     {
                         StartCoroutine(moveRight());
-                        Winput = false;
+                        input = false;
                     }
                 }
                 else if (Input.GetKey(KeyCode.A))
@@ -256,35 +251,24 @@ public class CubeMovement2 : MonoBehaviour
                     if ((Input.GetKey(KeyCode.D) == false) && (Input.GetKey(KeyCode.W) == false) && (Input.GetKey(KeyCode.S) == false))
                     {
                         StartCoroutine(moveDown());
-                        Winput = false;
+                        input = false;
                     }
                 }
             }
         }
-        /*if (Input.GetKey(KeyCode.Space))
-        {
-            RaycastHit Floor;
-            if(Physics.Raycast(gameObject.transform.position, Vector3.down, out Floor,1.1f))
-            {
-                if (Floor.transform.tag == "walkable")
-                {
-                    mrigidbody.AddForce(Vector3.up * JumpForce);
-                }
-            }
-        }*/
     }
 
     IEnumerator moveUp()
     {
-        for (int i = 0; i < (90 / step); i++)
+        for (int i = 0; i < (90 / step); i++) //Repeats while "i" equals less than 18 (90 / step(5))
         {
-            OFFinput = false;
-            player.transform.RotateAround(NDown.transform.position, Vector3.right, step);
-            yield return new WaitForSeconds(speed);
+            OFFinput = false; //sets OFFinput to false
+            player.transform.RotateAround(NDown.transform.position, Vector3.right, step); //gets the Object "player" and rotates it around the "NDown" object
+            yield return new WaitForSeconds(speed); //Waits for "speed"(0.01 seconds) before continuing 
             OFFinput = true;
         }
-        center.transform.position = player.transform.position;
-        input();
+        center.transform.position = player.transform.position; //moves object "center" to the center of the object "player"
+        input = true;
         if (moveUpUsed == false)
         {
             moveUpUsed = true;
@@ -301,7 +285,7 @@ public class CubeMovement2 : MonoBehaviour
             OFFinput = true;
         }
         center.transform.position = player.transform.position;
-        input();
+        input = true;
         if (moveDownUsed == false)
         {
             moveDownUsed = true;
@@ -318,7 +302,7 @@ public class CubeMovement2 : MonoBehaviour
             OFFinput = true;
         }
         center.transform.position = player.transform.position;
-        input();
+        input = true;
         if (moveRightUsed == false)
         {
             moveRightUsed = true;
@@ -335,18 +319,10 @@ public class CubeMovement2 : MonoBehaviour
             OFFinput = true;
         }
         center.transform.position = player.transform.position;
-        input();
+        input = true;
         if (moveLeftUsed == false)
         {
             moveLeftUsed = true;
         }
-    }
-
-    void input()
-    {
-        Ninput = true;
-        Sinput = true;
-        Einput = true;
-        Winput = true;
     }
 }
