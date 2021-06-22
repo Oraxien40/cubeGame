@@ -8,10 +8,12 @@ public class Hints : MonoBehaviour
     private GameManager gameManager; //is a seprate script
     public CubeMovement2 CM2; //is a seprate script
 
-    string hintMove = "WASD to move"; //what is put in the Hint box
-    string hintCollect = "move over the diamonds to add to your score"; //what is put in the Hint box
+    public string hintMove = "WASD to move"; //what is put in the Hint box
+    public string hintCollect = "move over the diamonds to add to your score"; //what is put in the Hint box
+    public string hintWin;
 
     bool MHint = false;
+    bool CHint = false;
 
     private void Start()
     {
@@ -23,7 +25,7 @@ public class Hints : MonoBehaviour
         {
             MovementHint(); //runs "MovementHint"
         }
-        else
+        else if (CHint == false)
         {
            CollectableHint(); //runs "CollectableHint"
         }
@@ -54,7 +56,20 @@ public class Hints : MonoBehaviour
         {
             hintValue = null; //"hintValue" epuals nothing
             gameManager.UpdatePlayerHints(hintValue); //Updates "hintValue" in GameManager script
-            MHint = true;
+            CHint = true;
+        }
+    }
+    void WinHint()
+    {
+        if (gameManager.playerScore == 0 && MHint == true) //checks if "playerScore" equals 0 and if "MHint" equals true
+        {
+            hintValue = hintWin;
+            gameManager.UpdatePlayerHints(hintValue); //Updates "hintValue" in GameManager script
+        }
+        else
+        {
+            hintValue = null; //"hintValue" epuals nothing
+            gameManager.UpdatePlayerHints(hintValue); //Updates "hintValue" in GameManager script
         }
     }
 }
