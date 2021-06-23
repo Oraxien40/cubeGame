@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class CubeMovement2 : MonoBehaviour
 {
-    //Variables
     private Vector3 offset;
 
     public GameObject player; //Cube
     public GameObject center; //Object point in the center of the cube
-   
+
     public GameObject North; //Object point 1 meter North of center
     public GameObject NUp; //Object point 1 meter Up of North
     public GameObject NDown; //Object point 1 meter Down of North
@@ -35,6 +34,11 @@ public class CubeMovement2 : MonoBehaviour
     bool cEast = false; //Determines if the camera is facing East
     bool cWest = false; //Determines if the camera is facing West
 
+    bool TNorth = false;
+    bool TSouth = false;
+    bool TEast = false;
+    bool TWest= false;
+
     [HideInInspector] public bool moveUpUsed = false; //Determines if "moveUp" has been used
     [HideInInspector] public bool moveDownUsed = false; //Determines if "moveDown" has been used
     [HideInInspector] public bool moveLeftUsed = false; //Determines if "moveLeft" has been used
@@ -43,11 +47,12 @@ public class CubeMovement2 : MonoBehaviour
     [HideInInspector] public bool input = true; //stops the "void Update" from taking KeyCode inputs while Any "IEnumerators" are active 
     [HideInInspector] public bool OFFinput = true; //stops the ""void Update" from taking CameraAngle inputs while Any "IEnumerators" are active 
 
+
     void Start()
     {
         if (90 % step != 0) //checks if varible "step" is divisible by 90
         {
-            Debug.LogError("your variable step is not divisivble by 90"); //Logs a Debug LogError
+            Debug.LogError("your variable step is not divisivble by 90");
         }
     }
     void Update() //Update is called once per frame
@@ -55,12 +60,13 @@ public class CubeMovement2 : MonoBehaviour
         if (OFFinput == true) //Checks if "OFFinput" is true
         {
             float cameraAngle = Camera.main.transform.eulerAngles.y; //Locates the cameras location/rotation around the target (Player) and sets varible "cameraAngle" to eaqual it
-            if (cameraAngle > 315 && cameraAngle <= 360 || cameraAngle > 0 && cameraAngle <= 45) //Checks if the camera is facing North
+            if (cameraAngle > 315 && cameraAngle <= 360 || cameraAngle > 0 && cameraAngle <= 45 && TNorth == false) //Checks if the camera is facing North
             {
                 //set north
                 cNorth = true; //sets "cNorth" to true
                 //Debug.Log("north");
             }
+           
             else
             {
                 cNorth = false; //sets "cNorth" to false
@@ -258,71 +264,89 @@ public class CubeMovement2 : MonoBehaviour
         }
     }
 
+    public void UpdateWallTriggerNorth(bool newValue)
+    {
+        TNorth = newValue;
+        Debug.Log("'TNorth' was updated");
+    }
+
     IEnumerator moveUp()
     {
-        for (int i = 0; i < (90 / step); i++) //Repeats while "i" equals less than 18 (90 / step(5))
+        if (TNorth == false)
         {
-            OFFinput = false; //sets OFFinput to false
-            player.transform.RotateAround(NDown.transform.position, Vector3.right, step); //gets the Object "player" and rotates it around the "NDown" object
-            yield return new WaitForSeconds(speed); //Waits for "speed"(0.01 seconds) before continuing 
-            OFFinput = true;
-        }
-        center.transform.position = player.transform.position; //moves object "center" to the center of the object "player"
-        input = true;
-        if (moveUpUsed == false)
-        {
-            moveUpUsed = true;
+            for (int i = 0; i < (90 / step); i++) //Repeats while "i" equals less than 18 (90 / step(5))
+            {
+                OFFinput = false; //sets OFFinput to false
+                player.transform.RotateAround(NDown.transform.position, Vector3.right, step); //gets the Object "player" and rotates it around the "NDown" object
+                yield return new WaitForSeconds(speed); //Waits for "speed"(0.01 seconds) before continuing 
+                OFFinput = true;
+            }
+            center.transform.position = player.transform.position; //moves object "center" to the center of the object "player"
+            input = true;
+            if (moveUpUsed == false)
+            {
+                moveUpUsed = true;
+            }
         }
     }
 
     IEnumerator moveDown()
     {
-        for (int i = 0; i < (90 / step); i++)
+        if (TSouth == false)
         {
-            OFFinput = false;
-            player.transform.RotateAround(SDown.transform.position, Vector3.left, step);
-            yield return new WaitForSeconds(speed);
-            OFFinput = true;
-        }
-        center.transform.position = player.transform.position;
-        input = true;
-        if (moveDownUsed == false)
-        {
-            moveDownUsed = true;
+            for (int i = 0; i < (90 / step); i++)
+            {
+                OFFinput = false;
+                player.transform.RotateAround(SDown.transform.position, Vector3.left, step);
+                yield return new WaitForSeconds(speed);
+                OFFinput = true;
+            }
+            center.transform.position = player.transform.position;
+            input = true;
+            if (moveDownUsed == false)
+            {
+                moveDownUsed = true;
+            }
         }
     }
 
     IEnumerator moveRight()
     {
-        for (int i = 0; i < (90 / step); i++)
+        if (TEast == false)
         {
-            OFFinput = false;
-            player.transform.RotateAround(EDown.transform.position, Vector3.back, step);
-            yield return new WaitForSeconds(speed);
-            OFFinput = true;
-        }
-        center.transform.position = player.transform.position;
-        input = true;
-        if (moveRightUsed == false)
-        {
-            moveRightUsed = true;
+            for (int i = 0; i < (90 / step); i++)
+            {
+                OFFinput = false;
+                player.transform.RotateAround(EDown.transform.position, Vector3.back, step);
+                yield return new WaitForSeconds(speed);
+                OFFinput = true;
+            }
+            center.transform.position = player.transform.position;
+            input = true;
+            if (moveRightUsed == false)
+            {
+                moveRightUsed = true;
+            }
         }
     }
 
     IEnumerator moveLeft()
     {
-        for (int i = 0; i < (90 / step); i++)
+        if (TWest == false)
         {
-            OFFinput = false;
-            player.transform.RotateAround(WDown.transform.position, Vector3.forward, step);
-            yield return new WaitForSeconds(speed);
-            OFFinput = true;
-        }
-        center.transform.position = player.transform.position;
-        input = true;
-        if (moveLeftUsed == false)
-        {
-            moveLeftUsed = true;
+            for (int i = 0; i < (90 / step); i++)
+            {
+                OFFinput = false;
+                player.transform.RotateAround(WDown.transform.position, Vector3.forward, step);
+                yield return new WaitForSeconds(speed);
+                OFFinput = true;
+            }
+            center.transform.position = player.transform.position;
+            input = true;
+            if (moveLeftUsed == false)
+            {
+                moveLeftUsed = true;
+            }
         }
     }
 }

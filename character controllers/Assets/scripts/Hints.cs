@@ -33,7 +33,7 @@ public class Hints : MonoBehaviour
     }
     void MovementHint()
     {
-        if (CM2.moveUpUsed == false || CM2.moveLeftUsed == false || CM2.moveDownUsed == false || CM2.moveRightUsed == false) //checks if Variables "moveUpUsed", "moveLeftUsed", "moveDownUsed" and "moveRightUsed" are false
+        if (CM2.moveUpUsed == false && CM2.moveLeftUsed == false && CM2.moveDownUsed == false && CM2.moveRightUsed == false) //checks if Variables "moveUpUsed", "moveLeftUsed", "moveDownUsed" and "moveRightUsed" are false
         {
             hintValue = hintMove; //sets "hintValue" to equal "hintMove"
             gameManager.UpdatePlayerHints(hintValue); //Updates "hintValue" in GameManager script

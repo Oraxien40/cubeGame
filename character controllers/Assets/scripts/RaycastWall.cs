@@ -16,22 +16,21 @@ public class RaycastWall : MonoBehaviour
         //RaycastHit
         //if raycast(start location, direction, where to store data, how long is it)
         RaycastHit wall;
-        // NOTE!!!!!! change rotation of center to camera!!!!!!!!!!!!!!!!!!!!!!!!
         if (Physics.Raycast(CM2.center.transform.position, new Vector3 (0, Vector3.Angle(transform.position, CM2.North.transform.position), 0), out wall, Vector3.Distance(transform.position,CM2.North.transform.position)))
         {
             CM2.input = false;
         }
-        if (Physics.Raycast(CM2.center.transform.position, -transform.forward,out wall,1.1f))
+        /*else if (Physics.Raycast(CM2.center.transform.position, -transform.forward,out wall,1.1f))
         {
             CM2.input = false;
         }
-        if (Physics.Raycast(CM2.center.transform.position, transform.right,out wall, 1.1f))
+        else if (Physics.Raycast(CM2.center.transform.position, transform.right,out wall, 1.1f))
         {
             CM2.input = false;
         }
-        if (Physics.Raycast(CM2.center.transform.position, -transform.right,out wall, 1.1f))
+        else if (Physics.Raycast(CM2.center.transform.position, -transform.right,out wall, 1.1f))
         {
             CM2.input = false;
-        }
+        }*/
     }
 }
